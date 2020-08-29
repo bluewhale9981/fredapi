@@ -118,11 +118,15 @@ class Fred(object):
         data : Series
             a Series where each index is the observation date and the value is the data for the Fred series
         """
-        url = "%s/series/observations?series_id=%s" % (self.root_url, series_id)
+        url = "%s/series/observations?series_id=%s&realtime_start=%s&realtime_end=%s" % (self.root_url,
+                                                                                         series_id,
+                                                                                         self.earliest_realtime_start,
+                                                                                         self.latest_realtime_end)
         if observation_start is not None:
             observation_start = pd.to_datetime(observation_start,
                                                errors='raise')
             url += '&observation_start=' + observation_start.strftime('%Y-%m-%d')
+        
         if observation_end is not None:
             observation_end = pd.to_datetime(observation_end, errors='raise')
             url += '&observation_end=' + observation_end.strftime('%Y-%m-%d')
