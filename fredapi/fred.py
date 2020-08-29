@@ -131,15 +131,26 @@ class Fred(object):
         root = self.__fetch_data(url)
         if root is None:
             raise ValueError('No data exists for series id: ' + series_id)
+        
         data = {}
+        i = 0
         for child in root.getchildren():
             val = child.get('value')
             if val == self.nan_char:
                 val = float('NaN')
             else:
                 val = float(val)
-            data[self._parse(child.get('date'))] = val
-        return pd.Series(data)
+            realtime_start = self._parse(child.get('realtime_start'))
+            # realtime_end = self._parse(child.get('realtime_end'))
+            date = self._parse(child.get('date'))
+
+            data[i] = {'realtime_start': realtime_start,
+                       # 'realtime_end': realtime_end,
+                       'date': date,
+                       'value': val}
+            i += 1
+        data = pd.DataFrame(data).T
+        return data
 
     def get_series_latest_release(self, series_id):
         """
