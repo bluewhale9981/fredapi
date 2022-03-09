@@ -78,7 +78,7 @@ class Fred(object):
             rv = rv.to_pydatetime()
         return rv
 
-    def get_series_info(self, series_id: str) -> pd.Series[typing.Any]:
+    def get_series_info(self, series_id: str):
         """
         Get information about a series such as its title, frequency, observation start/end dates, units, notes, etc.
 
