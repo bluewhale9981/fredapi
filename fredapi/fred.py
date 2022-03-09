@@ -77,7 +77,7 @@ class Fred(object):
             rv = rv.to_pydatetime()
         return rv
 
-    def get_series_info(self, series_id):
+    def get_series_info(self, series_id: str) -> pd.Series:
         """
         Get information about a series such as its title, frequency, observation start/end dates, units, notes, etc.
 
@@ -98,7 +98,7 @@ class Fred(object):
         info = pd.Series(root.getchildren()[0].attrib)
         return info
 
-    def get_series(self, series_id, observation_start=None, observation_end=None, **kwargs):
+    def get_series(self, series_id: str, observation_start: str = None, observation_end: str = None, **kwargs) -> pd.DataFrame:
         """
         Get data for a Fred series id. This fetches the latest known data, and is equivalent to get_series_latest_release()
 
@@ -215,7 +215,7 @@ class Fred(object):
         data = df[df['realtime_start'] <= as_of_date]
         return data
 
-    def get_series_all_releases(self, series_id) -> pd.DataFrame:
+    def get_series_all_releases(self, series_id: str) -> pd.DataFrame:
         """
         Get all data for a Fred series id including first releases and all revisions. This returns a DataFrame
         with three columns: 'date', 'realtime_start', and 'value'. For instance, the US GDP for Q4 2013 was first released
