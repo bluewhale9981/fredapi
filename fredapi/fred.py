@@ -1,6 +1,7 @@
 
 import os
 import sys
+import typing
 import xml.etree.ElementTree as ET
 if sys.version_info[0] >= 3:
     import urllib.request as url_request
@@ -77,7 +78,7 @@ class Fred(object):
             rv = rv.to_pydatetime()
         return rv
 
-    def get_series_info(self, series_id: str) -> pd.Series:
+    def get_series_info(self, series_id: str) -> pd.Series[typing.Dict[str, str]]:
         """
         Get information about a series such as its title, frequency, observation start/end dates, units, notes, etc.
 
