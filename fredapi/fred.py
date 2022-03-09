@@ -28,7 +28,7 @@ class Fred(object):
 
     def __init__(self,
                  api_key=None,
-                 api_key_file=None):
+                 api_key_file=None) -> None:
         """
         Initialize the Fred class that provides useful functions to query the Fred dataset. You need to specify a valid
         API key in one of 3 ways: pass the string via api_key, or set api_key_file to a file with the api key in the
@@ -215,7 +215,7 @@ class Fred(object):
         data = df[df['realtime_start'] <= as_of_date]
         return data
 
-    def get_series_all_releases(self, series_id):
+    def get_series_all_releases(self, series_id) -> pd.DataFrame:
         """
         Get all data for a Fred series id including first releases and all revisions. This returns a DataFrame
         with three columns: 'date', 'realtime_start', and 'value'. For instance, the US GDP for Q4 2013 was first released
@@ -259,7 +259,7 @@ class Fred(object):
                        'date': date,
                        'value': val}
             i += 1
-        data = pd.DataFrame(data).T
+        data: pd.DataFrame = pd.DataFrame(data).T
         return data
 
     def get_series_vintage_dates(self, series_id):
@@ -455,3 +455,6 @@ class Fred(object):
         if info is None:
             raise ValueError('No series exists for category id: ' + str(category_id))
         return info
+    
+    def set_earliest_realtime_start(self, earliest_realtime_start: str) -> None:
+        self.earliest_realtime_start = earliest_realtime_start
