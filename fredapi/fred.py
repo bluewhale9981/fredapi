@@ -136,7 +136,7 @@ class Fred(object):
 
         data = {}
         i = 0
-        for child in root.getchildren():
+        for child in root:
             val = child.get('value')
             if val == self.nan_char:
                 val = float('NaN')
@@ -149,8 +149,8 @@ class Fred(object):
                        'date': date,
                        'value': val}
             i += 1
-        data = pd.DataFrame(data).T
-        return data
+
+        return pd.Series(data)
 
     def get_series_latest_release(self, series_id):
         """
