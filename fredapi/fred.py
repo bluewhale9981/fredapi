@@ -150,7 +150,8 @@ class Fred(object):
                        'value': val}
             i += 1
 
-        return pd.Series(data)
+        data: pd.DataFrame = pd.DataFrame(data).T
+        return data
 
     def get_series_latest_release(self, series_id):
         """
