@@ -119,10 +119,7 @@ class Fred(object):
         data : Series
             a Series where each index is the observation date and the value is the data for the Fred series
         """
-        url = "%s/series/observations?series_id=%s&realtime_start=%s&realtime_end=%s" % (self.root_url,
-                                                                                         series_id,
-                                                                                         self.earliest_realtime_start,
-                                                                                         self.latest_realtime_end)
+        url = "%s/series/observations?series_id=%s" % (self.root_url, series_id)
         if observation_start is not None:
             observation_start = pd.to_datetime(observation_start,
                                                errors='raise')
@@ -146,11 +143,9 @@ class Fred(object):
             else:
                 val = float(val)
             realtime_start = self._parse(child.get('realtime_start'))
-            # realtime_end = self._parse(child.get('realtime_end'))
             date = self._parse(child.get('date'))
 
             data[i] = {'realtime_start': realtime_start,
-                    #    'realtime_end': realtime_end,
                        'date': date,
                        'value': val}
             i += 1
